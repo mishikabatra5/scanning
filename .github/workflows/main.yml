@@ -22,8 +22,10 @@ jobs:
 
     - name: Install Trivy
       run: |
-        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
 
     - name: Scan Docker image with Trivy
       run: |
-        docker save myapp:latest | $(find / -type f -name "trivy" 2> /dev/null) image -
+        docker save myapp:latest | trivy image -
+
